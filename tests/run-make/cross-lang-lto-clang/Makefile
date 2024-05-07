@@ -2,6 +2,7 @@
 
 # This test makes sure that cross-language inlining actually works by checking
 # the generated machine code.
+# See https://github.com/rust-lang/rust/pull/57514
 
 include ../tools.mk
 
