@@ -6,6 +6,7 @@ ifndef IS_WINDOWS
 
 # This test makes sure that we don't loose upstream object files when compiling
 # staticlibs with -C linker-plugin-lto
+# See https://github.com/rust-lang/rust/pull/53031
 
 all: staticlib.rs upstream.rs
 	$(RUSTC) upstream.rs -C linker-plugin-lto -Ccodegen-units=1
