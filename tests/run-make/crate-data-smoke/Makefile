@@ -1,3 +1,6 @@
+# The linked PR changed crate-name, file-names and such flags to be processed before the entire crate is parsed. This test ensures that this functionality is preserved.
+# See https://github.com/rust-lang/rust/pull/11077
+
 include ../tools.mk
 
 all:
