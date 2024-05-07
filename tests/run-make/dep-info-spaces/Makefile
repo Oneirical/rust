@@ -1,3 +1,6 @@
+# In this test, foo foo.rs contains a space in the filename. This test checks that dep-info properly escapes that space.
+# See https://github.com/rust-lang/rust/issues/17627
+
 include ../tools.mk
 
 # ignore-windows
