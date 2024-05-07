@@ -1,3 +1,6 @@
+# This test feeds metadata to rustc in varied ways. It checks that the input is parsed correctly, and that the output file has the corresponding filename.
+# See https://github.com/rust-lang/rust/pull/85362
+
 include ../tools.mk
 
 OUT=$(TMPDIR)/emit
