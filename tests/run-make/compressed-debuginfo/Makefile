@@ -4,6 +4,7 @@ include ../tools.mk
 # only-linux
 #
 # This tests debuginfo-compression.
+# See https://github.com/rust-lang/rust/pull/115358
 
 all: zlib zstandard
 
