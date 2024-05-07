@@ -1,3 +1,6 @@
+# m1 to m4.rs are dynamically linked to one another. This test checks that the chain succeeds inititally, then fails after the removal of dynamic libraries.
+# See https://github.com/rust-lang/rust/issues/10434
+
 # ignore-cross-compile
 include ../tools.mk
 
