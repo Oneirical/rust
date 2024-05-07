@@ -1,3 +1,6 @@
+# This test verifies that dynamic linking with C does not encounter any errors.
+# See https://github.com/rust-lang/rust/issues/10434
+
 # ignore-cross-compile
 include ../tools.mk
 
