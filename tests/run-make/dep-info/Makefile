@@ -1,3 +1,6 @@
+# dep-info writes Makefile-compatible dependency files. This test checks that the dep-info flag carries out its expected function.
+# See https://github.com/rust-lang/rust/pull/10698
+
 include ../tools.mk
 
 # ignore-windows
