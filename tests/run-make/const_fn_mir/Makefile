@@ -2,8 +2,6 @@
 # This is to check that --emit=mir emits both mir_for_ctfe and optimized_mir for const fn.
 # See https://github.com/rust-lang/rust/pull/78407
 
-…st fn`
-
 # needs-unwind -Cpanic=abort gives different MIR output
 include ../tools.mk
 
