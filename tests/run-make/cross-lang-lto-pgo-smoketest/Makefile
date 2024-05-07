@@ -4,6 +4,7 @@
 # with profile-guided optimization. The test only tests that the whole workflow
 # can be executed without anything crashing. It does not test whether PGO or
 # xLTO have any specific effect on the generated code.
+# See https://github.com/rust-lang/rust/pull/61036
 
 include ../tools.mk
 
