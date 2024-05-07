@@ -1,3 +1,5 @@
+# See https://github.com/rust-lang/rust/pull/29478
+
 include ../tools.mk
 
 # only-windows-gnu
