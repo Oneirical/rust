@@ -8,6 +8,7 @@ ifndef IS_WINDOWS
 # This test makes sure that the object files we generate are actually
 # LLVM bitcode files (as used by linker LTO plugins) when compiling with
 # -Clinker-plugin-lto.
+# See https://github.com/rust-lang/rust/pull/50000
 
 # this only succeeds for bitcode files
 ASSERT_IS_BITCODE_OBJ=("$(LLVM_BIN_DIR)"/llvm-bcanalyzer $(1))
