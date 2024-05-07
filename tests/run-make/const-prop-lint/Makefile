@@ -3,6 +3,7 @@ include ../tools.mk
 # Test that emitting an error because of arithmetic
 # overflow lint does not leave .o files around
 # because of interrupted codegen.
+# See https://github.com/rust-lang/rust/pull/110107/
 
 all:
 	$(RUSTC) input.rs; test $$? -eq 1
