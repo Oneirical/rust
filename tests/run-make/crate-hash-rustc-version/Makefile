@@ -3,6 +3,7 @@ include ../tools.mk
 
 # Ensure that crates compiled with different rustc versions cannot
 # be dynamically linked.
+# See https://github.com/rust-lang/rust/pull/89836
 
 FLAGS := -Cprefer-dynamic -Csymbol-mangling-version=v0
 UNAME := $(shell uname)
