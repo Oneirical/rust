@@ -1,3 +1,5 @@
+# See https://github.com/rust-lang/rust/pull/86045/commits/a26d99f348de873e7a7b2b9ab6e78506278c0fee
+
 include ../tools.mk
 
 OUT=$(TMPDIR)/emit
