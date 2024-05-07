@@ -2,7 +2,8 @@ include ../tools.mk
 
 # ignore-cross-compile
 
-# Just verify that we successfully run and produce dep graphs when requested.
+# When dep-graph flags are passed, this test checks that the requested dep-graph files are outputted.
+# See https://github.com/rust-lang/rust/pull/89343
 
 all:
 	RUST_DEP_GRAPH=$(TMPDIR)/dep-graph $(RUSTC) \
