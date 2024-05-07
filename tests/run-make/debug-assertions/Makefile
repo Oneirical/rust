@@ -1,3 +1,6 @@
+# At any opt-level higher than 0, the flag debug_assertions should be turned off. This test checks that this rule remains true.
+# See https://github.com/rust-lang/rust/pull/22980
+
 # ignore-cross-compile
 # needs-unwind
 include ../tools.mk
