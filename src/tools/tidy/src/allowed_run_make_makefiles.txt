@@ -15,7 +15,6 @@ run-make/cdylib-fewer-symbols/Makefile
 run-make/codegen-options-parsing/Makefile
 run-make/comment-section/Makefile
 run-make/compiler-lookup-paths-2/Makefile
-run-make/compiler-lookup-paths/Makefile
 run-make/compiler-rt-works-on-mingw/Makefile
 run-make/compressed-debuginfo/Makefile
 run-make/const_fn_mir/Makefile
