@@ -99,6 +99,13 @@ impl Rustc {
         self
     }
 
+    /// Specify the path where monomorphization stats will be dumped..
+    pub fn dump_mono_stats<P: AsRef<Path>>(&mut self, path: P) -> &mut Self {
+        let path = path.as_ref().to_string_lossy();
+        self.cmd.arg(format!("-Zdump-mono-stats={path}"));
+        self
+    }
+
     /// Specify path to the input file.
     pub fn input<P: AsRef<Path>>(&mut self, path: P) -> &mut Self {
         self.cmd.arg(path.as_ref());
@@ -179,7 +186,11 @@ impl Rustc {
     }
 
     /// Add a directory to the library search path with a restriction. Equivalent to `-L KIND=PATH` in rustc.
-    pub fn specific_library_search_path<P: AsRef<Path>>(&mut self, kind: &str, path: P) -> &mut Self {
+    pub fn specific_library_search_path<P: AsRef<Path>>(
+        &mut self,
+        kind: &str,
+        path: P,
+    ) -> &mut Self {
         assert!(["dependency", "native", "all", "framework", "crate"].contains(&kind));
         let path = path.as_ref().to_string_lossy();
         self.cmd.arg(format!("-L{kind}={path}"));
