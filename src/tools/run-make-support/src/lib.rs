@@ -189,17 +189,9 @@ pub fn build_native_static_lib(lib_name: &str) -> PathBuf {
     let lib_name = if is_msvc() {
         let lib_path = format!("lib{lib_name}.lib");
         // First compiling `.c` to `.o`.
-        cc().arg("-c").out_exe(&obj_file).input(src).run();
+        cc().arg("-c").out_exe(&cygpath_windows(&obj_file)).input(src).run();
         // Generating `.lib` from `.o`.
-        let mut msvc_lib = Command::new(env_var("MSVC_LIB"));
-        msvc_lib
-            .current_dir(cwd())
-            .arg(&format!("-out:{}", cygpath_windows(&lib_path)))
-            .arg(&obj_file);
-        let output = msvc_lib.run();
-        if !output.status().success() {
-            handle_failed_output(&msvc_lib, output, caller_line_number);
-        }
+        ar(obj_file, &lib_path, caller_line_number);
         lib_path
     } else {
         let lib_path = format!("lib{lib_name}.a");
