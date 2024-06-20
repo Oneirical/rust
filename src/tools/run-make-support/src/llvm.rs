@@ -29,6 +29,12 @@ pub fn llvm_objdump() -> LlvmObjdump {
     LlvmObjdump::new()
 }
 
+/// Construct a new `llvm-dwarfdump` invocation. This assumes that `llvm-dwarfdump` is available
+/// at `$LLVM_BIN_DIR/llvm-dwarfdump`.
+pub fn llvm_dwarfdump() -> LlvmDwarfdump {
+    LlvmDwarfdump::new()
+}
+
 /// A `llvm-readobj` invocation builder.
 #[derive(Debug)]
 #[must_use]
@@ -57,10 +63,18 @@ pub struct LlvmObjdump {
     cmd: Command,
 }
 
+/// A `llvm-dwarfdump` invocation builder.
+#[derive(Debug)]
+#[must_use]
+pub struct LlvmDwarfdump {
+    cmd: Command,
+}
+
 crate::impl_common_helpers!(LlvmReadobj);
 crate::impl_common_helpers!(LlvmProfdata);
 crate::impl_common_helpers!(LlvmFilecheck);
 crate::impl_common_helpers!(LlvmObjdump);
+crate::impl_common_helpers!(LlvmDwarfdump);
 
 /// Generate the path to the bin directory of LLVM.
 #[must_use]
@@ -170,6 +184,22 @@ impl LlvmObjdump {
     pub fn new() -> Self {
         let llvm_objdump = llvm_bin_dir().join("llvm-objdump");
         let cmd = Command::new(llvm_objdump);
+        Self { cmd }
+    }
+
+    /// Provide an input file.
+    pub fn input<P: AsRef<Path>>(&mut self, path: P) -> &mut Self {
+        self.cmd.arg(path.as_ref());
+        self
+    }
+}
+
+impl LlvmDwarfdump {
+    /// Construct a new `llvm-dwarfdump` invocation. This assumes that `llvm-dwarfdump` is available
+    /// at `$LLVM_BIN_DIR/llvm-dwarfdump`.
+    pub fn new() -> Self {
+        let llvm_dwarfdump = llvm_bin_dir().join("llvm-dwarfdump");
+        let cmd = Command::new(llvm_dwarfdump);
         Self { cmd }
     }
 
