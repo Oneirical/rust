@@ -30,8 +30,9 @@ pub use cc::{cc, extra_c_flags, extra_cxx_flags, Cc};
 pub use clang::{clang, Clang};
 pub use diff::{diff, Diff};
 pub use llvm::{
-    llvm_filecheck, llvm_objdump, llvm_profdata, llvm_readobj, LlvmFilecheck, LlvmObjdump,
-    LlvmProfdata, LlvmReadobj,
+    llvm_dis, llvm_filecheck, llvm_objcopy, llvm_objdump, llvm_profdata,
+    llvm_readobj, LlvmDis, LlvmFilecheck, LlvmObjcopy, LlvmObjdump, LlvmProfdata,
+    LlvmReadobj,
 };
 pub use run::{cmd, run, run_fail, run_with_args};
 pub use rustc::{aux_build, rustc, Rustc};

@@ -29,6 +29,18 @@ pub fn llvm_objdump() -> LlvmObjdump {
     LlvmObjdump::new()
 }
 
+/// Construct a new `objcopy` invocation. This assumes that `objcopy` is available
+/// at `$LLVM_BIN_DIR/objcopy`.
+pub fn llvm_objcopy() -> LlvmObjcopy {
+    LlvmObjcopy::new()
+}
+
+/// Construct a new `llvm-dis` invocation. This assumes that `llvm-dis` is available
+/// at `$LLVM_BIN_DIR/llvm-dis`.
+pub fn llvm_dis() -> LlvmDis {
+    LlvmDis::new()
+}
+
 /// A `llvm-readobj` invocation builder.
 #[derive(Debug)]
 #[must_use]
@@ -57,10 +69,26 @@ pub struct LlvmObjdump {
     cmd: Command,
 }
 
+/// A `objcopy` invocation builder.
+#[derive(Debug)]
+#[must_use]
+pub struct LlvmObjcopy {
+    cmd: Command,
+}
+
+/// A `llvm-dis` invocation builder.
+#[derive(Debug)]
+#[must_use]
+pub struct LlvmDis {
+    cmd: Command,
+}
+
 crate::impl_common_helpers!(LlvmReadobj);
 crate::impl_common_helpers!(LlvmProfdata);
 crate::impl_common_helpers!(LlvmFilecheck);
 crate::impl_common_helpers!(LlvmObjdump);
+crate::impl_common_helpers!(LlvmObjcopy);
+crate::impl_common_helpers!(LlvmDis);
 
 /// Generate the path to the bin directory of LLVM.
 #[must_use]
@@ -176,6 +204,46 @@ impl LlvmObjdump {
     /// Provide an input file.
     pub fn input<P: AsRef<Path>>(&mut self, path: P) -> &mut Self {
         self.cmd.arg(path.as_ref());
+        self
+    }
+}
+
+impl LlvmDis {
+    /// Construct a new `llvm-dis` invocation. This assumes that `llvm-dis` is available
+    /// at `$LLVM_BIN_DIR/llvm-dis`.
+    pub fn new() -> Self {
+        let llvm_dis = llvm_bin_dir().join("llvm-dis");
+        let cmd = Command::new(llvm_dis);
+        Self { cmd }
+    }
+
+    /// Provide an input file.
+    pub fn input<P: AsRef<Path>>(&mut self, path: P) -> &mut Self {
+        self.cmd.arg(path.as_ref());
+        self
+    }
+}
+
+impl LlvmObjcopy {
+    /// Construct a new `objcopy` invocation. This assumes that `objcopy` is available
+    /// at `$LLVM_BIN_DIR/objcopy`.
+    pub fn new() -> Self {
+        let objcopy = llvm_bin_dir().join("objcopy");
+        let cmd = Command::new(objcopy);
+        Self { cmd }
+    }
+
+    /// Provide an input file.
+    pub fn input<P: AsRef<Path>>(&mut self, path: P) -> &mut Self {
+        self.cmd.arg(path.as_ref());
+        self
+    }
+
+    /// Select the dump section.
+    pub fn dump_section<P: AsRef<Path>>(&mut self, section: &str, path: P) -> &mut Self {
+        let path = path.as_ref().to_string_lossy();
+        self.cmd.arg("--dump-section");
+        self.cmd.arg(format!("{section}={path}"));
         self
     }
 }
