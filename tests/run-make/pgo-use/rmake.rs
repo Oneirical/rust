@@ -9,7 +9,7 @@
 //@ ignore-cross-compile
 
 use run_make_support::{
-    cwd, find_files_by_prefix_and_extension, fs_wrapper, llvm_filecheck, llvm_profdata,
+    cwd, find_files, fs_wrapper, has_extension, has_prefix, llvm_filecheck, llvm_profdata,
     run_with_args, rustc,
 };
 
@@ -31,7 +31,11 @@ fn main() {
     llvm_profdata()
         .merge()
         .output("merged.profdata")
-        .input(find_files_by_prefix_and_extension(cwd(), "default", "profraw").get(0).unwrap())
+        .input(
+            find_files(cwd(), |path| has_prefix(path, "default") && has_extension(path, "profraw"))
+                .get(0)
+                .unwrap(),
+        )
         .run();
     // Compile the test program again, making use of the profiling data
     rustc()
@@ -48,7 +52,7 @@ fn main() {
     // line with the function name before the line with the function attributes.
     // FileCheck only supports checking that something matches on the next line,
     // but not if something matches on the previous line.
-    let mut bytes = fs_wrapper::read("interesting.ll");
+    let mut bytes = fs_wrapper::read("main.ll");
     bytes.reverse();
     llvm_filecheck().patterns("filecheck-patterns.txt").stdin(bytes).run();
 }
