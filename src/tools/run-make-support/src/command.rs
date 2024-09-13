@@ -105,6 +105,11 @@ impl Command {
     }
 
     /// Set an auxiliary stream passed to the process, besides the stdio streams.
+    ///
+    /// Use with caution - ideally, only set one aux fd; if there are multiple,
+    /// their old `fd` may overlap with another's `newfd`, and thus will break.
+    /// If you need more than 1 auxiliary file descriptor, rewrite this function
+    /// to be able to support that.
     #[cfg(unix)]
     pub fn set_aux_fd<F: Into<std::os::fd::OwnedFd>>(
         &mut self,
@@ -114,18 +119,28 @@ impl Command {
         use std::os::fd::AsRawFd;
         use std::os::unix::process::CommandExt;
 
+        let cvt = |x| if x == -1 { Err(std::io::Error::last_os_error()) } else { Ok(()) };
+
         let fd = fd.into();
-        unsafe {
-            self.cmd.pre_exec(move || {
-                let fd = fd.as_raw_fd();
-                let ret = if fd == newfd {
-                    libc::fcntl(fd, libc::F_SETFD, 0)
-                } else {
-                    libc::dup2(fd, newfd)
-                };
-                if ret == -1 { Err(std::io::Error::last_os_error()) } else { Ok(()) }
-            });
+        if fd.as_raw_fd() == newfd {
+            // if fd is already where we want it, just turn off FD_CLOEXEC
+            // SAFETY: io-safe: we have ownership over fd
+            cvt(unsafe { libc::fcntl(fd.as_raw_fd(), libc::F_SETFD, 0) })
+                .expect("disabling CLOEXEC failed");
+            // we still unconditionally set the pre_exec function, since it captures
+            // `fd`, and we want to ensure that it stays open until the fork
         }
+        let pre_exec = move || {
+            if fd.as_raw_fd() != newfd {
+                // set newfd to point to the same file as fd
+                // SAFETY: io-"safe": newfd is. not necessarily an unused fd.
+                // however, we're
+                cvt(unsafe { libc::dup2(fd.as_raw_fd(), newfd) })?;
+            }
+            Ok(())
+        };
+        // SAFETY: dup2 is pre-exec-safe
+        unsafe { self.cmd.pre_exec(pre_exec) };
         self
     }
 

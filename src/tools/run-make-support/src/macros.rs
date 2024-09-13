@@ -81,6 +81,11 @@ macro_rules! impl_common_helpers {
             }
 
             /// Set an auxiliary stream passed to the process, besides the stdio streams.
+            ///
+            /// Use with caution - ideally, only set one aux fd; if there are multiple,
+            /// their old `fd` may overlap with another's `newfd`, and thus will break.
+            /// If you need more than 1 auxiliary file descriptor, rewrite this function
+            /// to be able to support that.
             #[cfg(unix)]
             pub fn set_aux_fd<F: Into<std::os::fd::OwnedFd>>(
                 &mut self,
