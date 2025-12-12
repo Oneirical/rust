@@ -22,3 +22,4 @@ impl std::fmt::Display for MyError {
 fn main() {
     println!("Hello, world!");
 }
+// https://github.com/rust-lang/rust/issues/52262

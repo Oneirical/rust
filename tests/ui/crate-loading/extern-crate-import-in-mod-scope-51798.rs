@@ -1,5 +1,5 @@
 //@ edition:2018
-//@ aux-build:issue-51798.rs
+//@ aux-build:aux-51798.rs
 //@ check-pass
 
 extern crate issue_51798;
@@ -12,3 +12,4 @@ mod server {
 }
 
 fn main() {}
+// https://github.com/rust-lang/rust/issues/51798

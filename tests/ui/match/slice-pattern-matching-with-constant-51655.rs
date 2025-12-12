@@ -12,3 +12,4 @@ fn match_slice(element: &[u8]) {
 }
 
 fn main() {}
+// https://github.com/rust-lang/rust/issues/51655

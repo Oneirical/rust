@@ -5,3 +5,4 @@ fn main() {
     foo(|a, b| b)
     //~^ ERROR lifetime may not live long enough
 }
+// https://github.com/rust-lang/rust/issues/52533

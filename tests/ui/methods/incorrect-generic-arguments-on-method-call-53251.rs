@@ -19,3 +19,4 @@ macro_rules! impl_add {
 impl_add!(a b);
 
 fn main() { }
+// https://github.com/rust-lang/rust/issues/53251

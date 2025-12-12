@@ -25,3 +25,4 @@ fn main() {
     let _ = Pin::new(Apple) == Rc::pin(Apple);
     //~^ ERROR type mismatch resolving
 }
+// https://github.com/rust-lang/rust/issues/67039-

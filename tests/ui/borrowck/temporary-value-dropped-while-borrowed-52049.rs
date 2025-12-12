@@ -6,3 +6,4 @@ fn main() {
     foo(&unpromotable(5u32));
 }
 //~^^ ERROR temporary value dropped while borrowed
+// https://github.com/rust-lang/rust/issues/52049

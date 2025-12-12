@@ -17,3 +17,4 @@ for<'t> <Map<<&'t I as IntoIterator>::IntoIter, F> as Iterator>::Item: Foo,
 fn main() {
     trigger_error(vec![], |x: &u32| x) //~ ERROR E0277
 }
+// https://github.com/rust-lang/rust/issues/60218

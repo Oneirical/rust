@@ -7,3 +7,4 @@ struct S(u8);
 pub fn ice() {
     S([][0]);
 }
+// https://github.com/rust-lang/rust/issues/53275

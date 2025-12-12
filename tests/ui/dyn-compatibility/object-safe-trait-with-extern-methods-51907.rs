@@ -17,3 +17,4 @@ fn main() {
     foo.borrow();
     foo.take()
 }
+// https://github.com/rust-lang/rust/issues/51907

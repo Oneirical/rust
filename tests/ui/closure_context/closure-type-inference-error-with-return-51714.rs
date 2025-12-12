@@ -19,3 +19,4 @@ fn main() {
     //~^ ERROR: return statement outside of function body [E0572]
     //~| NOTE: the return is part of this body...
 }
+// https://github.com/rust-lang/rust/issues/51714

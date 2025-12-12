@@ -10,3 +10,4 @@ fn main() {
 
     let tiles: [[usize; 3]; 3] = tiles;
 }
+// https://github.com/rust-lang/rust/issues/51116

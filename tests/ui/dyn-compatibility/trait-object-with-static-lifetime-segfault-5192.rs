@@ -36,3 +36,4 @@ impl Scheduler {
 pub fn main() {
     let _sched = Scheduler::new(Box::new(UvEventLoop::new()) as Box<dyn EventLoop>);
 }
+// https://github.com/rust-lang/rust/issues/5192

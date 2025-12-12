@@ -47,3 +47,4 @@ pub fn panics() {
         // line gets dropped here but references are kept in acc.map
     }
 }
+// https://github.com/rust-lang/rust/issues/52126-

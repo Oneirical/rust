@@ -10417,3 +10417,4 @@ fn banana(v: &str) -> u32 {
         5206
     }
 }
+// https://github.com/rust-lang/rust/issues/74564-
